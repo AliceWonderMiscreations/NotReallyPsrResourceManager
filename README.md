@@ -217,10 +217,10 @@ a system administrator. Other fields common to both JS and CSS:
   indicating when the file was last modified. For many projects, this is
   specified in a comment header of the file itself, and in those cases, that
   string should be used.
-* `srcurl` String, required
+* `srcurl` String, required:  
   What should go in the `src` or `href` attribute. Must be parseable by the
   `parse_url` function and internationalized domains should be in punycode.
-* `minified` Boolean, recommended
+* `minified` Boolean, recommended:  
   If set to false *and* the `integrity` attribute is not being used, some file
   wrappers may wish to minify on the fly.
 
@@ -249,13 +249,13 @@ A sample of what a JavaScript JSON might look like:
 
 JavaScript Specific Fields:
 
-* `async` Boolean, optional  
+* `async` Boolean, optional:  
   Only needed if it is desired to have that attribute, then set to `true`.
-* `defer` Boolean, optional  
+* `defer` Boolean, optional:  
   Only needed if it is desired to have that attribute, then set to `true`.
-* `nomodule` Boolean, optional  
+* `nomodule` Boolean, optional:  
   Only needed if it is desired to have that attribute, then set to `true`.
-* ??`type`?? Needs Exploration  
+* ??`type`?? Needs Exploration:  
   In most cases, the `type` attribute is set to the MIME type, but it may be
   necessary to set it to `modular` for ES6 modular feature, I still need to
   learn about that.
