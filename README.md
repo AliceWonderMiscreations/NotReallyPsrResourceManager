@@ -173,6 +173,16 @@ Then from the `$obj` the web application could use either
 variant of jQuery 3 to their web application.
 
 
+### ResourceServer Interface
+
+Not yet written. For classes that are wrappers to serving the actual file.
+
+
+### ResourceManagerException Interface
+
+Not yet written, but will just make exceptions catchable.
+
+
 JSON Part of Solution
 ---------------------
 
