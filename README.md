@@ -3,6 +3,11 @@ NotReallyPsrResourceManager
 
 Specification, interfaces, and abstract classes for web application management of 3rd party JS/CSS
 
+Subject to change, not finished, and deity I hope to get input from others.
+
+A reference implementation even though this isn't finished yet is at
+[AliceWonderMiscreations/ResourceManager](https://github.com/AliceWonderMiscreations/ResourceManager)
+
 The [PHP-FIG](https://www.php-fig.org/) creates useful standards for web
 applications and frameworks to use that allow interoperability with each other.
 
@@ -171,9 +176,142 @@ variant of jQuery 3 to their web application.
 JSON Part of Solution
 ---------------------
 
-write more later
+The ResourceManager will hunt for a JSON configuration file that matches the
+resource the web application requests and then create the object to return from
+the JSON file. That needs a standard JSON file format.
+
+### Common JSON Elements to JavaScript and CSS
+
+* `name` String, required:  
+  The name of the script or css, sans version and variant, e.g. `jquery`.
+* `homepage` String, not strictly required:  
+  The URL homepage of the project
+* `version` String, required:  
+  The version of the script being described.
+* `license` Array, required:  
+  An array containing one or more applicable license for the script. Each
+  element of the array should contain license name and a URL for the
+  license.
+
+Those fields are not utilized by the classes but are metadata that is useful to
+a system administrator. Other fields common to both JS and CSS:
+
+* `mime` String, required:  
+  The MIME type that should be used when serving the file.
+* `checksum` String, recommended:  
+  The `algo:checksum` described in the `FileResource` abstract class.
+* `filepath` String, optional:  
+  If the file is present on the server, the filesystem path to the file.
+* `lastmod` String, recommended:  
+  A string that can be parsed by `strtotime()` to create a UNIX timestamp
+  indicating when the file was last modified. For many projects, this is
+  specified in a comment header of the file itself, and in those cases, that
+  string should be used.
+* `srcurl` String, required
+  What should go in the `src` or `href` attribute. Must be parseable by the
+  `parse_url` function and internationalized domains should be in punycode.
+* `minified` Boolean, recommended
+  If set to false *and* the `integrity` attribute is not being used, some file
+  wrappers may wish to minify on the fly.
+
+### JavaScript JSON
+
+A sample of what a JavaScript JSON might look like:
+
+    {
+        "name": "jquery",
+        "homepage": "https://jquery.com/",
+        "version": "3.3.1",
+        "license": [
+            {
+                "name": "MIT",
+                "url": "https://jquery.org/license/"
+            }
+        ],
+        "mime": "application/javascript",
+        "checksum": "sha256:160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+        "filepath": "awonderphp/commonjs/js/jquery-3.3.1.min.js",
+        "lastmod": "2018-01-20T17:24Z",
+        "minified": true,
+        "srcurl": "/js/jquery-3.3.1.min.js",
+        "async": true
+    }
+
+JavaScript Specific Fields:
+
+* `async` Boolean, optional  
+  Only needed if it is desired to have that attribute, then set to `true`.
+* `defer` Boolean, optional  
+  Only needed if it is desired to have that attribute, then set to `true`.
+* `nomodule` Boolean, optional  
+  Only needed if it is desired to have that attribute, then set to `true`.
+* ??`type`?? Needs Exploration  
+  In most cases, the `type` attribute is set to the MIME type, but it may be
+  necessary to set it to `modular` for ES6 modular feature, I still need to
+  learn about that.
+
+### CSS JSON
+
+Needs to be written
 
 
+File System and Config File Naming
+----------------------------------
+
+All scripts should be installed with a hierarchy of
+`$base/VendorName/ProductName` where `VendorName` and `ProductName` are lower
+case, as is Composer convention for PHP libraries.
+
+In the case of Composer install of JS/CSS libraries, the Composer `vendor`
+directory would be the `$base` directory.
+
+Within the `ProductName` directory, an `etc` directory __MUST__ exist that has
+the JSON configuration files, and it is *RECOMENDED* that the actual JavaScript
+files reside in a `js` directory and CSS files reside in a `css` directory.
+
+An example of what this would look like is at
+[AliceWonderMiscreations/CommonJS](https://github.com/AliceWonderMiscreations/CommonJS)
+
+Default configuration files would be named using:
+
+    ScriptName-Version-Variant.json.dist
+
+Where ScriptName is the name of the script (e.g. `jquery`), Version is the
+version of the script (e.g. `3.3.1`), and if present, Variant would be the
+script variant (e.g. `min` or `slim` or `slim.min`).
+
+The default configuration should have the `srcurl` point to a local URL, e.g.
+
+    "srcurl": "/js/jquery-3.3.1.min.js",
+
+When a system administrator wants to customize what is in the configuration,
+they simply copy the file so that it no longer ends in `.dist` and then they
+can modify it (e.g. to set `srcurl` to a CDN).
+
+The ResourceManager __MUST__ give priority to the configuration file without
+the `.dist` if it is found.
+
+With the `major.minor.point` versioning scheme, a configuration file should
+exist for both `major.minor` and `major` that are identical to the default
+configuration file for the most recent `major.minor.point` that match.
+
+
+Wrapper Script
+--------------
+
+Web Applications that implement this __MUST__ be able to handle requests to the
+default `/js/` and `/css/` locations.
+
+This can be accomplished by a wrapper script. An interface should be written.
+
+The way it would work, the web applications would need to have `mod_rewrite`
+or whatever configured to handle requests for the script, fetch the object
+using the ResourceManager, and serve the file.
+
+I plan to extend my
+[FileWrapper](https://github.com/AliceWonderMiscreations/FileWrapper) class to
+work for this, once an interface is created to implement with the extended
+class.
 
 
 
