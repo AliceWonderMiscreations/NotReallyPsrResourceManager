@@ -42,7 +42,7 @@ understood what I was really proposing, it would have had more enthusiasm.
 7. [ResourceManager Interface](#resourcemanager-interface)
 8. [ResourceServer Interface](#resourceserver-interface)
 9. [ResourceManagerException Interface](#resourcemanagerexception-interface)
-10. [JSON Part of the Solution](#json-part-of-the-solution)
+10. [JSON Part of Solution](#json-part-of-solution)
 11. [Common JSON Elements to JavaScript and CSS](#common-json-elements-to-javascript-and-css)
 12. [JavaScript JSON](#javascript-json)
 13. [CSS JSON](#css-json)
