@@ -33,6 +33,22 @@ truth is I have an incredible amount of respect for the PHP-FIG and I am very
 glad they exist. I also believe that I have trouble communicating, and if they
 understood what I was really proposing, it would have had more enthusiasm.
 
+1. [The Problem](#the-problem)
+2. [The Solution](#the-solution)
+3. [PHP Part of Solution](#php-part-of-solution)
+4. [FileResource Abstract Class](#fileresource-abstract-class)
+5. [JavaScriptResource Interface](#javascriptresource-interface)
+6. [CssResource Interface](#cssresource-interface)
+7. [ResourceManager Interface](#resourcemanager-interface)
+8. [ResourceServer Interface](#resourceserver-interface)
+9. [ResourceManagerException Interface](#resourcemanagerexception-interface)
+10. [JSON Part of the Solution](#json-part-of-the-solution)
+11. [Common JSON Elements to JavaScript and CSS](#common-json-elements-to-javascript-and-css)
+12. [JavaScript JSON](#javascript-json)
+13. [CSS JSON](#css-json)
+14. [File System and Config File Naming](#file-system-and-config-file-naming)
+15. [Wrapper Script](#wrapper-script)
+
 
 The Problem
 -----------
