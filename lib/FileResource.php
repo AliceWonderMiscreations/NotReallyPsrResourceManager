@@ -37,6 +37,13 @@ abstract class FileResource
      * @var null|string
      */
     protected $filepath = null;
+    
+    /**
+     * The crossorigin attribute if any
+     *
+     * @var null|string
+     */
+    protected $crossorigin = null;
 
     /**
      * Modification date of file - may not necessarily match the modification date of the actual
@@ -81,7 +88,7 @@ abstract class FileResource
      *
      * @return null|string
      */
-    public function showMime()
+    public function getMimeType()
     {
         return $this->mime;
     }
@@ -91,9 +98,19 @@ abstract class FileResource
      *
      * @return null|string
      */
-    public function showChecksum()
+    public function getChecksum()
     {
         return $this->checksum;
+    }
+    
+    /**
+     * Returns null or the value to use with a crossorigin attribute
+     *
+     * @return null|string
+     */
+    public function getCrossOrigin()
+    {
+        return $this->crossorigin;
     }
     
     /**
@@ -128,6 +145,16 @@ abstract class FileResource
         }
         return false;
     }
+    
+    /**
+     * Returns the filepath to the resource or null if the property is not defined
+     *
+     * @return null|string
+     */
+    public function getFilePath()
+    {
+        return $this->filepath;
+    }
 
     /**
      * Returns the URI to the resource. For http the checksum MUST exist so
@@ -140,16 +167,20 @@ abstract class FileResource
         $return = '';
         if ((! is_null($this->urlscheme)) && (! is_null($this->urlhost))) {
             if (! in_array($this->urlscheme, array('http', 'https'))) {
+                trigger_error("Remote resources should only be served with HTTPS or (deprecated) HTTP with an integrity attribute, src attribute not generated.", E_USER_NOTICE);
                 return null;
             }
             if ($this->urlscheme === 'http') {
                 if (is_null($this->checksum)) {
+                    trigger_error("Remote resources are not safe over HTTP without a usable integrity attribute, src attribute not generated.", E_USER_NOTICE);
                     return null;
                 }
                 list($algo, $checksum) = explode(':', $this->checksum);
                 if (! in_array($algo, $this->validIntegrityAlgo)) {
+                    trigger_error("Remote resources are not safe over HTTP without a usable integrity attribute, src attribute not generated.", E_USER_NOTICE);
                     return null;
                 }
+                trigger_error("Use of HTTP for remote resources is dangerous and deprecated and may not be supported in future versions.", E_USER_NOTICE);
             }
             $return = $this->urlscheme . '://' . $this->urlhost;
         }

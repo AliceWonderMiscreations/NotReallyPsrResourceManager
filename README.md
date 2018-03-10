@@ -102,6 +102,8 @@ This abstract class probably should contain the following properties:
   base64 encoded.
 * `protected $filepath = null;`  
   The path to the resource on the local filesystem.
+* `protected $crossorigin = null;`  
+  The contents of a crossorigin attribute if needed.
 * `protected $lastmod = null;`  
   The last time the file was modified. Note that this is often different than
   the time stamp on the filesystem.
@@ -122,17 +124,23 @@ Note that all those properties in the abstract class *may* be null.
 
 The abstract class should have the following public functions defined:
 
-* `showMime()`  
+* `getMimeType()`  
   Returns the contents of the `$mime` property.
 
-* `showChecksum()`  
+* `getChecksum()`  
   Returns the contents of the `$checksum` property.
+
+* `getCrossOrigin()`  
+  Returns the contents of the `$crossorigin` property.
 
 * `validateFile()`  
   When both the `$checksum` property and the `$filepath` property are set, the
   ability to validate the file should exist.
+  
+* `getFilePath()`  
+  If applicable, the path to the file on the local filesystem.
 
-* `resourceURI()`  
+* `getSrcAttribute()`  
   Build a URI out of the various `$url*` properties.
 
 * `getTimeStamp()`

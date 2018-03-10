@@ -32,13 +32,6 @@ interface JavaScriptResource
     public function getAsyncAttribute();
     
     /**
-     * Returns crossorigin attribute value or null
-     *
-     * @return null|string
-     */
-    public function getCrossOriginAttribute();
-    
-    /**
      * Returns whether or not to defer execution
      *
      * @return bool
