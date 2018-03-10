@@ -44,3 +44,32 @@ algorithms defined in the
 
 In short, use `https` if you want to experiment with different hash algorithms
 for the `integrity` attribute.
+
+
+Multiple Digests in Integrity Attribute
+---------------------------------------
+
+The `integrity` attribute supports multiple different digests. This could be
+provided for by allowing an array for the digest (checksum) property but I
+think this is a scenario where KISS applies.
+
+When a particular hashing algorithm is broken, it should not be used. When not
+broken, providing more than one only increases the odds of an implementation
+error causing a problem - either in this class or in the browser.
+
+Also with more than one, a typo in a digest may go un-noticed if in a digest
+that isn't used by the browser of those testing stuff.
+
+
+Prefix to Local URL Path
+------------------------
+
+When the resource is served locally, the only means by which to change the path
+is to create a custom configuration file.
+
+So for example, if a web application is not served in the root directory but
+from a subdirectory, the `/js` directory will need to be `/prefix/js`
+
+That will be fixed by adding a `prefix` property to the `FileResource` abstract
+class along with a function to change it, it just is low priority at the moment
+but needs to be done.
