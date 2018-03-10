@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace AWonderPHP\NotReallyPsrResourceManager;
 
@@ -23,6 +24,12 @@ abstract class FileResource
      * @var null|string
      */
     protected $checksum = null;
+    
+    /**
+     * Hashing algorithms that are currently supported by browsers for use with
+     * the integrity attribute
+     */
+    protected $validIntegrityAlgo = array('sha256', 'sha384', 'sha512');
 
     /**
      * Filesystem location, only applicable when a local resource
@@ -88,20 +95,63 @@ abstract class FileResource
     {
         return $this->checksum;
     }
+    
+    /**
+     * Validates the file matches the checksum
+     *
+     * @return null|boolean Returns null if the file can not be found or any
+     *                      other reason that prevents an actual verification
+     *                      from being performed. If verification can be
+     *                      performed, returns True if verified, False if it
+     *                      does not verify.
+     */
+    public function validateFile()
+    {
+        if ((is_null($this->filepath)) || (is_null($this->checksum))) {
+            return null;
+        }
+        if (! file_exists($this->filepath)) {
+            return null;
+        }
+        list($algo, $hash) = explode(':', $this->checksum, 2);
+        if (! in_array($algo, hash_algos())) {
+            return null;
+        }
+        if (ctype_xdigit($hash)) {
+            $raw = hex2bin($hash);
+        } else {
+            $raw = base64_decode($hash);
+        }
+        $filehash = hash_file($algo, $this->filepath, true);
+        if ($raw === $filehash) {
+            return true;
+        }
+        return false;
+    }
 
     /**
-     * Returns the URI to the resource
+     * Returns the URI to the resource. For http the checksum MUST exist so
+     * that an integrity attribute will exist.
      *
      * @return null|string
      */
-    public function resourceURI()
+    public function getSrcAttribute()
     {
         $return = '';
-        if (! is_null($this->urlscheme)) {
-            $return = $this->urlscheme . '://';
-        }
-        if (! is_null($this->urlhost)) {
-            $return .= $this->urlhost;
+        if ((! is_null($this->urlscheme)) && (! is_null($this->urlhost))) {
+            if (! in_array($this->urlscheme, array('http', 'https'))) {
+                return null;
+            }
+            if ($this->urlscheme === 'http') {
+                if (is_null($this->checksum)) {
+                    return null;
+                }
+                list($algo, $checksum) = explode(':', $this->checksum);
+                if(! in_array($algo, $this->validIntegrityAlgo) {
+                    return null;
+                }
+            }
+            $return = $this->urlhost . '://' . $this->urlhost;
         }
         if (! is_null($this->urlpath)) {
             $return .= $this->urlpath;

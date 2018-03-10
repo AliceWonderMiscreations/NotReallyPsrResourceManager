@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace AWonderPHP\NotReallyPsrResourceManager;
 
@@ -38,7 +39,14 @@ interface ResourceServer
      *
      * @return bool True on success, False on Failure
      */
-    public function serveJavaScript(string $vendor, string $product, string $name, $version, $variant = null, bool $minify = false);
+    public function serveJavaScript(
+        string $vendor,
+        string $product,
+        string $name,
+        $version,
+        $variant = null,
+        bool $minify = false
+    );
     
     /**
      * Creates a FileResource object from the arguments and then serves the file using serveFileResourc()
@@ -55,7 +63,14 @@ interface ResourceServer
      *
      * @return bool True on success, False on Failure
      */
-    public function serveCSS(string $vendor, string $product, string $name, $version, $variant = null, bool $minify = false);
+    public function serveCSS(
+        string $vendor,
+        string $product,
+        string $name,
+        $version,
+        $variant = null,
+        bool $minify = false
+    );
 }
 
 ?>
