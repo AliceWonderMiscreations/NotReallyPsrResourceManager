@@ -151,7 +151,7 @@ abstract class FileResource
                     return null;
                 }
             }
-            $return = $this->urlhost . '://' . $this->urlhost;
+            $return = $this->urlscheme . '://' . $this->urlhost;
         }
         if (! is_null($this->urlpath)) {
             $return .= $this->urlpath;
