@@ -51,6 +51,13 @@ interface JavaScriptResource
      * @return bool
      */
     public function getNoModuleAttribute();
+    
+    /**
+     * Returns whether or not the script is minified, or null
+     *
+     * @return null|bool
+     */
+    public function getMinified();
 
     //?? text
 
