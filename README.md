@@ -1,6 +1,11 @@
 NotReallyPsrResourceManager
 ===========================
 
+The funny not very user friendly namespace is being used because this is a
+developer preview of a concept I hope will be adopted and refined by an
+actual standards body. I do not want to be an actual standards body, I want
+to *implement* what a standards body says to implement.
+
 Specification, interfaces, and abstract classes for web application management of 3rd party JS/CSS
 
 Subject to change, not finished, and deity I hope to get input from others.
@@ -175,12 +180,36 @@ variant of jQuery 3 to their web application.
 
 ### ResourceServer Interface
 
-Not yet written. For classes that are wrappers to serving the actual file.
+Web Applications that implement this should use a class that implements this
+interface to serve requests for third party JavaScript within the `/js`
+directory. It defines three public functions:
+
+* `serveFileResource($fileResource, bool $minify = false)`  
+  Takes a `\AWonderPHP\NotReallyPsrResourceManager\FileResource` object as the
+  first argument and an optional boolean as the second argument. Implementors
+  are not required to minify if the second argument is set to true, but may do
+  so if the `FileResource` both has a `minified` property *and* that proprty is
+  set to false, and the FileResource does __NOT__ have a checksum property.
+  This is a public function but the intent is actually for use by the next two
+  public functions.
+* `serveJavaScript(string $vendor, string $product, string $name, $version, $variant = null, bool $minify = false)`  
+  First attempts to get the `FileResource` object associated with the
+  parameters and then use that object with the `serveFileResource` function to
+  serve the file to the client, passing the `$minify` parameter along.
+* `serveCSS(string $vendor, string $product, string $name, $version, $variant = null, bool $minify = false)`  
+  First attempts to get the `FileResource` object associated with the
+  parameters and then use that object with the `serveFileResource` function to
+  serve the file to the client, passing the `$minify` parameter along.
+
+All three functions are expected to return `false` on failure, `true` on
+success.
 
 
 ### ResourceManagerException Interface
 
-Not yet written, but will just make exceptions catchable.
+Does not define any public functions, solely exists as a way to catch
+exceptions and have them identified as associated with the ResourceManager.
+This is the same concept PSR-16 and others use.
 
 
 JSON Part of Solution
