@@ -147,7 +147,7 @@ abstract class FileResource
                     return null;
                 }
                 list($algo, $checksum) = explode(':', $this->checksum);
-                if(! in_array($algo, $this->validIntegrityAlgo) {
+                if (! in_array($algo, $this->validIntegrityAlgo)) {
                     return null;
                 }
             }
