@@ -1,6 +1,25 @@
 <?php
 declare(strict_types = 1);
 
+/**
+ * Interface for JavaScript/CSS ResourceManager classes
+ *
+ * @package AWonderPHP/NotReallyPsrResourceManager
+ * @author  Alice Wonder <paypal@domblogger.net>
+ * @license https://opensource.org/licenses/MIT MIT
+ * @link    https://github.com/AliceWonderMiscreations/NotReallyPsrResourceManager
+ */
+/*
+ +----------------------------------------------------+
+ |                                                    |
+ | Copyright (C) 2018 Alice Wonder Miscreations       |
+ |  May be used under the terms of the MIT license    |
+ |                                                    |
+ +----------------------------------------------------+
+ | Purpose: Interface for ResourceManager             |
+ +----------------------------------------------------+
+*/
+
 namespace AWonderPHP\NotReallyPsrResourceManager;
 
 /**
@@ -22,7 +41,7 @@ interface ResourceManager
      *                             an integer, it should be recast as a string.
      * @param null|string $variant The variant of the script requested
      *
-     * @return null|\AWonderPHP\NotReallyPsrResourceManager\FileResource
+     * @return null|JavaScriptResource
      */
     public function getJavaScript(string $vendor, string $product, string $name, $version, $variant = null);
 
@@ -37,7 +56,7 @@ interface ResourceManager
      *                             an integer, it should be recast as a string.
      * @param null|string $variant The variant of the script requested
      *
-     * @return null|\AWonderPHP\NotReallyPsrResourceManager\FileResource
+     * @return null|CssResource
      */
     public function getCSS(string $vendor, string $product, string $name, $version, $variant = null);
 }

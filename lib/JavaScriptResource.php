@@ -1,21 +1,101 @@
 <?php
 declare(strict_types = 1);
 
+/**
+ * An interface for JavaScript resource objects
+ *
+ * @package AWonderPHP/NotReallyPsrResourceManager
+ * @author  Alice Wonder <paypal@domblogger.net>
+ * @license https://opensource.org/licenses/MIT MIT
+ * @link    https://github.com/AliceWonderMiscreations/NotReallyPsrResourceManager
+ */
+/*
+ +----------------------------------------------------+
+ |                                                    |
+ | Copyright (C) 2018 Alice Wonder Miscreations       |
+ |  May be used under the terms of the MIT license    |
+ |                                                    |
+ +----------------------------------------------------+
+ | Purpose: Interface for JavaScript resource objects |
+ +----------------------------------------------------+
+*/
+
 namespace AWonderPHP\NotReallyPsrResourceManager;
 
 /**
- * Interface for JavaScript Objects based upon the JS_JSON.md
- * file in the top level directory
+ * An interface for JavaScript resource objects.
+ *
+ * It is intended for classes that implement this interface to extend the
+ * \AWonderPHP\FileResource\FileResource abstract class
  */
 interface JavaScriptResource
 {
+/* These methods will be met by extending \AWonderPHP\FileResource\FileResource */
     
     /**
-     * Must output a valid URL or a valid local path to use in a script src attribute
+     * Return the mime type
      *
-     * @return string
+     * @return null|string
      */
-    public function getSrcAttribute();
+    public function getMimeType();
+    
+    /**
+     * Return the checksum
+     *
+     * @return null|string
+     */
+    public function getChecksum();
+    
+    /**
+     * Returns null or the value to use with a crossorigin attribute
+     *
+     * @return null|string
+     */
+    public function getCrossOrigin();
+    
+    /**
+     * Returns the filepath to the resource or null if the property is not defined
+     *
+     * @return null|string
+     */
+    public function getFilePath();
+    
+    /**
+     * Validates the file matches the checksum
+     *
+     * @return null|boolean Returns null if the file can not be found or any
+     *                      other reason that prevents an actual verification
+     *                      from being performed. If verification can be
+     *                      performed, returns True if verified, False if it
+     *                      does not verify.
+     */
+    public function validateFile();
+    
+    /**
+     * Returns the URI to the resource. For http the checksum MUST exist so
+     * that an integrity attribute will exist.
+     *
+     * @param null|string $prefix A path to put at the beginning of the object urlpath property
+     *
+     * @return null|string
+     */
+    public function getSrcAttribute($prefix = null);
+    
+    /**
+     * Returns null or the value to use with a script node integrity attribute
+     *
+     * @return null|string
+     */
+    public function getIntegrityAttribute();
+    
+    /**
+     * Returns the UNIX timestamp from the lastmod property
+     *
+     * @return null|int
+     */
+    public function getTimestamp();
+    
+/* These methods are unique from \AWonderPHP\FileResource\FileResource */
     
     /**
      * Should return application/javascript or module
@@ -39,26 +119,12 @@ interface JavaScriptResource
     public function getDeferAttribute();
     
     /**
-     * Must generate a JavaScript integrity string if this->checksum is not null
-     *
-     * @return null|string The contents of the integrity attribute
-     */
-    public function getIntegrityAttribute();
-    
-    /**
      * Returns whether or not to use nomodule
      *
      * @return bool
      */
     public function getNoModuleAttribute();
     
-    /**
-     * Returns whether or not the script is minified, or null
-     *
-     * @return null|bool
-     */
-    public function getMinified();
-
     //?? text
 
     /**
