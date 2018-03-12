@@ -16,6 +16,16 @@ how to serve a `FileResource` object.
 It is also intended that the JavaScriptResource and CssResource objects be
 generated from JSON configuration files as described in this document.
 
+1. [`FileResource Methods`](#fileresource-methods)
+2. [`JavaScriptResource Interface Methods`](#javascriptresource-interface-methods)
+3. [`CssResource Interface Methods`](#cssresource-interface-methods)
+4. [`ResourceManager Interface`](#resourcemanager-interface)
+5. [`JSON Configuration File`](#json-configuration-file)
+6. [`JavaScript JSON`](#javascript-json)
+7. [`CSS JSON`](#css-json)
+8. [`File System and Config File Naming`](#file-system-and-config-file-naming)
+9. [`Wrapper Scriprt`](#wrapper-script)
+
 
 FileResource Methods
 --------------------
@@ -156,9 +166,9 @@ method.
 
 ### Example Usage:
 
-   $base = "/whatever/path";
-   $RM = new \namespace\whatever\ImplementingClass($base);
-   $jsObj = $RM->getJavaScript('flossjs', 'jquery', 'jquery', 3, "min");
+    $base = "/whatever/path";
+    $RM = new \namespace\whatever\ImplementingClass($base);
+    $jsObj = $RM->getJavaScript('flossjs', 'jquery', 'jquery', 3, "min");
 
 Then from `$jsObj` the web application can create the `<script>` node needed.
   
@@ -292,25 +302,14 @@ Wrapper Script
 Web Applications that implement this __MUST__ be able to handle requests to the
 default `/js/` and `/css/` locations.
 
-This can be accomplished by a wrapper script. An interface should be written.
+This can be accomplished by a wrapper script. An abstract class that extends
+the [FileWrapper](https://github.com/AliceWonderMiscreations/FileWrapper) class
+to work for this has been written, that abstract class is part of the
+[`AWonderPHP\FileResource`](https://github.com/AliceWonderMiscreations/FileResource)
+namespace.
 
-The way it would work, the web applications would need to have `mod_rewrite`
-or whatever configured to handle requests for the script, fetch the object
-using the ResourceManager, and serve the file.
+An interface exists in this namespace that can be used to define a class that
+extends the class that serves `FileResource` objects described above.
 
-I plan to extend my
-[FileWrapper](https://github.com/AliceWonderMiscreations/FileWrapper) class to
-work for this, once an interface is created to implement with the extended
-class.
-
-In the event that the web application is not served from the web root but from
-a subdirectory of a web root, then the web application __MUST__ define the
-path to where it is installed as a `$prefix` to the `ResourceManager`
-implementing class so that objects will create a correct `src` or `href`
-attribute when the JavaScript or CSS file is served from within the `js` or
-`css` directory of the web application.
-
-
-
-
-
+-----------------------------------
+__EOF__
