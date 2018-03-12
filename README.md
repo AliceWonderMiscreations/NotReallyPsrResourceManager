@@ -5,6 +5,9 @@ This is a set of interfaces that PHP libraries can use to provide sane
 management of third party JavaScript and CSS resources uses by the web
 applications.
 
+The current namespace `\AWonderPHP\NotReallyPsrResourceManager` sucks and will
+change. It was never intended as permanent.
+
 While not strictly required, it is highly recommended that classes that
 implement these interfaces extend the abstract classes within the
 [`\AwonderPHP\FileResource`](https://github.com/AliceWonderMiscreations/FileResource)
@@ -24,7 +27,7 @@ generated from JSON configuration files as described in this document.
 6. [`JavaScript JSON`](#javascript-json)
 7. [`CSS JSON`](#css-json)
 8. [`File System and Config File Naming`](#file-system-and-config-file-naming)
-9. [`Wrapper Scriprt`](#wrapper-script)
+9. [`Wrapper Script`](#wrapper-script)
 
 
 FileResource Methods
@@ -56,7 +59,7 @@ interfaces and are identical to the methods of the same name in the abstract
   resource in a web page. Note that this will return `null` if the `$urlscheme`
   property is `http` and the file does not have a `$checksum` property that
   uses an algorithm in the `$validIntegrityAlgo` property. The optional
-  parameter `$prefix` is a filesystem path to put in front of the `$urlpath`
+  parameter `$prefix` is a file system path to put in front of the `$urlpath`
   property, useful for web applications using a wrapper to serve the file.
 
 * `public function getIntegrityAttribute()`  
@@ -64,7 +67,7 @@ interfaces and are identical to the methods of the same name in the abstract
   uses a suitable algorithm.
 
 * `public function getTimestamp()`  
-  If the `$lastmode` property is not null, returns a UNIX timestamp (seconds
+  If the `$lastmode` property is not null, returns a UNIX time stamp (seconds
   from UNIX epoch).
 
 
@@ -79,13 +82,13 @@ the previously mentioned `FileResource` abstract class.
   type but not always.
 
 * `getAsyncAttribute()`  
-  Whether or not the boolean `async` attribute should be present.
+  Whether or not the Boolean `async` attribute should be present.
 
 * `getDeferAttribute();`  
-  Whether or not the boolean `defer` attribute should be present.
+  Whether or not the Boolean `defer` attribute should be present.
 
 * `getNoModuleAttribute()`  
-  Whether or not the boolean `nomodule` attribute should be present.
+  Whether or not the Boolean `nomodule` attribute should be present.
 
 * `generateScriptDomNode($dom, $nonce = null)`  
   Creates a `\DOMNode` `<script>` node, with an optional nonce.
@@ -93,7 +96,7 @@ the previously mentioned `FileResource` abstract class.
 * `generateScriptString(bool $xml = false, $nonce = null)`  
   Creates a string, either HTML or XHTML, for the script node with an optional
   nonce. If the `$xml` parameter is `true`, a string that is XML compliant
-  should be returned (every attribute is a `key="value"` pair, boolean
+  should be returned (every attribute is a `key="value"` pair, Boolean
   attributes are usually just `key="key"` but it does not really matter. Script
   node is self-closing). When the `$xml` parameters is `false`, the default, an
   HTML compliant string is generated (boolean attributes *may* just be `key`
@@ -201,9 +204,9 @@ a system administrator. Other fields common to both JS and CSS:
 * `checksum` String, recommended:  
   The `algo:checksum` described in the `FileResource` abstract class.
 * `filepath` String, optional:  
-  If the file is present on the server, the filesystem path to the file.
+  If the file is present on the server, the file system path to the file.
 * `lastmod` String, recommended:  
-  A string that can be parsed by `strtotime()` to create a UNIX timestamp
+  A string that can be parsed by `strtotime()` to create a UNIX time stamp
   indicating when the file was last modified. For many projects, this is
   specified in a comment header of the file itself, and in those cases, that
   string should be used.
@@ -266,8 +269,9 @@ In the case of Composer install of JS/CSS libraries, the Composer `vendor`
 directory would be the `$base` directory.
 
 Within the `ProductName` directory, an `etc` directory __MUST__ exist that has
-the JSON configuration files, and it is *RECOMENDED* that the actual JavaScript
-files reside in a `js` directory and CSS files reside in a `css` directory.
+the JSON configuration files, and it is *RECOMMENDED* that the actual
+JavaScript files reside in a `js` directory and CSS files reside in a `css`
+directory.
 
 An example of what this would look like is at
 [AliceWonderMiscreations/CommonJS](https://github.com/AliceWonderMiscreations/CommonJS)
