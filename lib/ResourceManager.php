@@ -22,7 +22,7 @@ interface ResourceManager
      *                             an integer, it should be recast as a string.
      * @param null|string $variant The variant of the script requested
      *
-     * @return null|\AWonderPHP\NotReallyPsrResourceManager\FileResource
+     * @return null|JavaScriptResource
      */
     public function getJavaScript(string $vendor, string $product, string $name, $version, $variant = null);
 
@@ -37,7 +37,7 @@ interface ResourceManager
      *                             an integer, it should be recast as a string.
      * @param null|string $variant The variant of the script requested
      *
-     * @return null|\AWonderPHP\NotReallyPsrResourceManager\FileResource
+     * @return null|CssResource
      */
     public function getCSS(string $vendor, string $product, string $name, $version, $variant = null);
 }

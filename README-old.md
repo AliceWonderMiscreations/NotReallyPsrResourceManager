@@ -153,25 +153,28 @@ Classes will need to extend the abstract FileResource class and extend this
 interface to create an object for JavaScript resource. The interface defines
 the following public functions:
 
-* `getSrcAttribute()`  
-  What goes into the `src` attribute of a `<script>` node. This may actually
-  be redundant given the `resourceURI()` method in the FileResource abstract
-  class.
 * `getTypeAttribute()`  
   What goes into the `type` attribute of a `<script>` node. Usually the MIME
   type but not always.
-* `getTypeAttribute()`  
+
+* `getAsyncAttribute()`  
   Whether or not the boolean `async` attribute should be present.
+
 * `getCrossOriginAttribute()`  
   What goes into the `crossorigin` attribute, if present.
+
 * `getDeferAttribute();`  
   Whether or not the boolean `defer` attribute should be present.
+
 * `getIntegrityAttribute()`  
   What goes into the `integrity` attribute when present.
+
 * `getNoModuleAttribute()`  
   Whether or not the boolean `nomodule` attribute should be present.
+
 * `generateScriptDomNode($dom, $nonce = null)`  
   Creates a `\DOMNode` `<script>` node, with an optional nonce.
+
 * `generateScriptString(bool $xml = false, $nonce = null)`  
   Creates a string, either HTML or XHTML, for the script node.
 

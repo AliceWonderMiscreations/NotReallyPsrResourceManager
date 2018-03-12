@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- PSR-2 but allow closing tags and with some Doc Comment stuff added -->
-<ruleset name="PHP_CodeSniffer">
+<ruleset name="AWonderPHP Standard">
   <description>The coding standard for AWonderPHP</description>
   <file>lib</file>
-  <arg name="basepath" value="."/>
+  <arg name="basepath" value="." />
   <arg name="colors" />
   <rule ref="PSR2">
     <exclude name="PSR2.Files.ClosingTag" />
@@ -14,6 +14,7 @@
   <rule ref="Generic.Commenting.DocComment.SpacingBeforeTags" />
   <rule ref="Generic.Commenting.DocComment.TagValueIndent" />
   <rule ref="Generic.Commenting.DocComment.NonParamGroup" />
+  <rule ref="PEAR.Commenting.FileComment.Missing" />
   <rule ref="PEAR.Commenting.FileComment.MissingPackageTag" />
   <rule ref="PEAR.Commenting.FileComment.PackageTagOrder" />
   <rule ref="PEAR.Commenting.FileComment.MissingAuthorTag" />
