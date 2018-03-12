@@ -1,6 +1,25 @@
 <?php
 declare(strict_types = 1);
 
+/**
+ * Interface for serving JavaScript/CSS Resource objects
+ *
+ * @package AWonderPHP/NotReallyPsrResourceManager
+ * @author  Alice Wonder <paypal@domblogger.net>
+ * @license https://opensource.org/licenses/MIT MIT
+ * @link    https://github.com/AliceWonderMiscreations/NotReallyPsrResourceManager
+ */
+/*
+ +-------------------------------------------------+
+ |                                                 |
+ | Copyright (C) 2018 Alice Wonder Miscreations    |
+ |  May be used under the terms of the MIT license |
+ |                                                 |
+ +-------------------------------------------------+
+ | Purpose: Interface for serving Resource objects |
+ +-------------------------------------------------+
+*/
+
 namespace AWonderPHP\NotReallyPsrResourceManager;
 
 /**

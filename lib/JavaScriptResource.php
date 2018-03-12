@@ -1,10 +1,29 @@
 <?php
 declare(strict_types = 1);
 
+/**
+ * An interface for JavaScript resource objects
+ *
+ * @package AWonderPHP/NotReallyPsrResourceManager
+ * @author  Alice Wonder <paypal@domblogger.net>
+ * @license https://opensource.org/licenses/MIT MIT
+ * @link    https://github.com/AliceWonderMiscreations/NotReallyPsrResourceManager
+ */
+/*
+ +----------------------------------------------------+
+ |                                                    |
+ | Copyright (C) 2018 Alice Wonder Miscreations       |
+ |  May be used under the terms of the MIT license    |
+ |                                                    |
+ +----------------------------------------------------+
+ | Purpose: Interface for JavaScript resource objects |
+ +----------------------------------------------------+
+*/
+
 namespace AWonderPHP\NotReallyPsrResourceManager;
 
 /**
- * Interface for JavaScript resource objects.
+ * An interface for JavaScript resource objects.
  *
  * It is intended for classes that implement this interface to extend the
  * \AWonderPHP\FileResource\FileResource abstract class
