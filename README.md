@@ -6,7 +6,9 @@ management of third party JavaScript and CSS resources uses by the web
 applications.
 
 The current namespace `\AWonderPHP\NotReallyPsrResourceManager` sucks and will
-change. It was never intended as permanent.
+change. It was never intended as permanent. I was hoping a standards body would
+want to take this idea and create some standard interfaces with fancy lingo
+that includes [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
 While not strictly required, it is highly recommended that classes that
 implement these interfaces extend the abstract classes within the
@@ -112,8 +114,26 @@ can be set by the constructor.
 CssResource Interface Methods
 -----------------------------
 
-Not yet defined.
+* `getTypeAttribute()`  
+  What goes into the `type` attribute of a CSS `<link>` node. This should
+  ALWAYS return `text/css`
 
+* `getMediaAttribute()`  
+  Returns what goes into the `media` attribute of a CSS `<link>` node. This is
+  rarely used, but it is very powerful and should be used more often IMHO as it
+  can reduce the bandwidth the client needs to have to successfully use a web
+  application.
+
+* `getHreflangAttribute()`  
+  Returns what goes into a `hreflang` attribute. When not null, it __MUST__ be
+  a [BCP47](https://tools.ietf.org/html/bcp47) string.
+
+* `getReferrerPolicyAttribute()`  
+  Returns what goes into a `referrerpolicy` attribute of a CSS `<link>` node. I
+  suspect it will not be used much, but it is there.
+
+* `getRelAttribute()`  
+  The contents of the `rel` attribute, should return `stylesheet`.
 
 ResourceManager Interface
 -------------------------
@@ -236,8 +256,7 @@ A sample of what a JavaScript JSON might look like:
         "filepath": "flossjs/jquery/js/jquery-3.3.1.min.js",
         "lastmod": "2018-01-20T17:24Z",
         "minified": true,
-        "srcurl": "/js/jquery-3.3.1.min.js",
-        "async": true
+        "srcurl": "/js/jquery-3.3.1.min.js"
     }
 
 JavaScript Specific Fields:
@@ -255,7 +274,23 @@ JavaScript Specific Fields:
 
 ### CSS JSON
 
-Needs to be written
+A sample of what a CSS JSON might look like needs to be written.
+
+CSS Specific Fields:
+
+* `media` Array, optional:  
+  An array containing the media tyes the CSS file applies to when it does not
+  apply to everyone (browsers assume `all` when not specified)
+* `hreflang` String, optional:  
+  The BCP47 language string that applies to the CSS file.
+* `referrerpolicy` String, optional:  
+  When present, must be one of `no-referrer`, `no-referrer-when-downgrade`,
+  `origin`, `origin-when-cross-origin`, `unsafe-url` -- browsers assume
+  `no-referrer-when-downgrade` which is almost always the best policy for
+  CSS style sheets. It is my opinion that `unsafe-url` should *never* be
+  used as it can leak information. It only has meaning when the remote server
+  does not use TLS but your web application uses TLS and that scenario *should*
+  be blocked by browsers anyway.
 
 
 File System and Config File Naming

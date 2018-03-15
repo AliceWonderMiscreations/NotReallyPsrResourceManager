@@ -31,6 +31,6 @@ namespace AWonderPHP\NotReallyPsrResourceManager;
  */
 interface ResourceManagerException
 {
-}
+}//end interface
 
 ?>

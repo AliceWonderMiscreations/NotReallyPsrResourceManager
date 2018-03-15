@@ -75,7 +75,7 @@ interface JavaScriptResource
      * Returns the URI to the resource. For http the checksum MUST exist so
      * that an integrity attribute will exist.
      *
-     * @param null|string $prefix A path to put at the beginning of the object urlpath property
+     * @param null|string $prefix A path to put at the beginning of the object urlpath property.
      *
      * @return null|string
      */
@@ -130,8 +130,8 @@ interface JavaScriptResource
     /**
      * Generates a DOMDocument node
      *
-     * @param \DOMDocument $dom   The DOMDocument class instance
-     * @param null|string  $nonce A nonce to use with Content Security Policy
+     * @param \DOMDocument $dom   The DOMDocument class instance.
+     * @param null|string  $nonce A nonce to use with Content Security Policy.
      *
      * @return \DOMNode
      */
@@ -141,12 +141,12 @@ interface JavaScriptResource
      * Generates an (X)HTML string
      *
      * @param boolean     $xml   Whether or not to generate self-closing XML style string, should
-     *                           default to false
-     * @param null|string $nonce A nonce to use with Content Security Policy
+     *                           default to false.
+     * @param null|string $nonce A nonce to use with Content Security Policy.
      *
      * @return string
      */
     public function generateScriptString(bool $xml = false, $nonce = null);
-}
+}//end interface
 
 ?>
