@@ -34,12 +34,12 @@ interface ResourceServer
      * Creates a FileResource object from the arguments and then serves the file using serveFileResourc()
      * if the implementing class extends \AWonderPHP\FileResource\ResourceServer
      *
-     * @param string      $vendor  The top level vendor of the script, lower case
-     * @param string      $product The product name the script is part of, lower case
-     * @param string      $name    The basic name of the script (e.g. jquery), lower case
+     * @param string      $vendor  The top level vendor of the script, lower case.
+     * @param string      $product The product name the script is part of, lower case.
+     * @param string      $name    The basic name of the script (e.g. jquery), lower case.
      * @param int|string  $version The version of the script requested. If the argument is
      *                             an integer, it should be recast as a string.
-     * @param null|string $variant The variant of the script requested
+     * @param null|string $variant The variant of the script requested.
      *
      * @return bool True on success, False on Failure
      */
@@ -55,12 +55,12 @@ interface ResourceServer
      * Creates a FileResource object from the arguments and then serves the file using serveFileResourc()
      * if the implementing class extends \AWonderPHP\FileResource\ResourceServer
      *
-     * @param string      $vendor  The top level vendor of the script, lower case
-     * @param string      $product The product name the script is part of, lower case
-     * @param string      $name    The basic name of the script (e.g. jquery), lower case
+     * @param string      $vendor  The top level vendor of the script, lower case.
+     * @param string      $product The product name the script is part of, lower case.
+     * @param string      $name    The basic name of the script (e.g. jquery), lower case.
      * @param int|string  $version The version of the script requested. If the argument is
      *                             an integer, it should be recast as a string.
-     * @param null|string $variant The variant of the script requested
+     * @param null|string $variant The variant of the script requested.
      *
      * @return bool True on success, False on Failure
      */
@@ -71,6 +71,6 @@ interface ResourceServer
         $version,
         $variant = null
     );
-}
+}//end interface
 
 ?>

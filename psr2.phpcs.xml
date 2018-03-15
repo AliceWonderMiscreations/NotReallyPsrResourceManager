@@ -6,9 +6,14 @@
   <arg name="basepath" value="." />
   <arg name="colors" />
   <rule ref="PSR2">
+    <!-- allow the closing tag -->
     <exclude name="PSR2.Files.ClosingTag" />
     <exclude name="PSR2.Files.EndFileNewline" />
+    <!-- good rule but some php shell scripts need to define local functions -->
+    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
   </rule>
+  <!-- Rule for excess whitespace -->
+  <!-- rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" / -->
   <!-- Include rules related to Doc Comment I want -->
   <rule ref="Generic.Commenting.DocComment.ShortNotCapital" />
   <rule ref="Generic.Commenting.DocComment.SpacingBeforeTags" />
@@ -31,4 +36,9 @@
   <rule ref="PEAR.Commenting.FunctionComment.MissingParamComment" />
   <rule ref="PEAR.Commenting.FunctionComment.MissingReturn" />
   <rule ref="PEAR.Commenting.FunctionComment.SpacingAfter" />
+  <rule ref="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
+  <rule ref="Squiz.Commenting.FunctionComment.ExtraParamComment" />
+  <!-- a few additional rules -->
+  <rule ref="Squiz.Commenting.ClosingDeclarationComment.Missing" />
+  <rule ref="Squiz.Classes.ClassDeclaration.NewlinesAfterCloseBrace" />
 </ruleset>
